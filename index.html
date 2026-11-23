@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>리턴픽 — 반품 특가만 골라 담았어요</title>
+<meta name="description" content="쿠팡 반품마켓에서 지금 살 수 있는 반품 특가 상품만 모아 정리했습니다. 상태 등급, 할인율, 남은 수량까지 한눈에 확인하세요." />
+<meta name="theme-color" content="#0f172a" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23ff4d3d'/%3E%3Cpath d='M4 8l8-3.5L20 8l-8 3.5z' fill='white'/%3E%3Cpath d='M4 12l8 3.5L20 12' stroke='white' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M4 16l8 3.5L20 16' stroke='white' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+<meta property="og:title" content="리턴픽 — 반품 특가만 골라 담았어요" />
+<meta property="og:description" content="반품마켓 인기·고할인 상품을 등급과 함께 매일 갱신합니다." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- 필수 고지: 공정거래위원회 대가성 문구 -->
+<div class="disclosure-bar" role="note">
+  <span class="disclosure-dot" aria-hidden="true"></span>
+  <span>이 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</span>
+</div>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4"/><path d="M3 17l9 4 9-4"/></svg>
+      </span>
+      <span class="brand-text">
+        <span class="brand-name">리턴픽</span>
+        <span class="brand-sub">반품 특가 큐레이션</span>
+      </span>
+    </a>
+    <div class="header-meta">
+      <span class="live-chip"><i aria-hidden="true"></i>실시간 특가</span>
+      <span class="header-updated">업데이트 <time id="headerUpdated">-</time></span>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">RETURN MARKET PICKS</p>
+        <h1>반품 특가만<br /><em>골라 담았습니다</em></h1>
+        <p class="hero-desc">
+          쿠팡 반품마켓에서 <strong>지금 실제로 살 수 있는</strong> 반품·전시 상품만 모았습니다.
+          할인율·절약 금액·상태 등급을 합산한 <strong>반품 가성비 점수</strong>로 바로 비교해 보세요.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong id="statCount">–</strong>
+            <span>오늘의 특가</span>
+          </div>
+          <div class="stat">
+            <strong id="statAvg">–</strong>
+            <span>평균 할인율</span>
+          </div>
+          <div class="stat">
+            <strong id="statSave">–</strong>
+            <span>최대 절약 금액</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-pick" id="heroPick"></div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="score-guide" id="scoreGuide"></div>
+
+    <div class="toolbar">
+      <div class="chips" id="categoryChips" role="tablist" aria-label="카테고리 필터"></div>
+      <div class="tools">
+        <div class="search">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+          <input id="searchInput" type="search" inputmode="search" placeholder="상품명·카테고리 검색" aria-label="상품 검색" />
+        </div>
+        <label class="sort">
+          <span class="sr-only">정렬</span>
+          <select id="sortSelect">
+            <option value="score">가성비 점수 높은순</option>
+            <option value="discount">할인율 높은순</option>
+            <option value="price">낮은 가격순</option>
+            <option value="saving">절약 금액순</option>
+          </select>
+          <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </label>
+      </div>
+    </div>
+
+    <p class="result-line">
+      <span id="resultCount">–</span>
+      <span class="result-hint">가격·재고는 수집 시점 기준이며 변동될 수 있습니다.</span>
+    </p>
+
+    <div class="grid" id="grid" aria-live="polite"></div>
+
+    <div class="empty" id="empty" hidden>
+      <p class="empty-emoji" aria-hidden="true">🧐</p>
+      <p class="empty-title">조건에 맞는 특가가 없어요</p>
+      <p class="empty-desc">검색어를 줄이거나 다른 카테고리를 선택해 보세요.</p>
+      <button type="button" class="empty-reset" id="resetButton">필터 초기화</button>
+    </div>
+
+    <section class="notice-box">
+      <h2>이용 안내</h2>
+      <ul>
+        <li>표시된 가격·재고·상태 등급은 <strong id="collectedAt">수집 시점</strong> 기준이며, 실시간으로 변동됩니다. 결제 직전 쿠팡 상품 페이지에서 최종 조건을 꼭 확인해 주세요.</li>
+        <li><strong>반품 가성비 점수</strong>는 할인율(최대 50점) + 절약 금액(최대 25점) + 상태 등급(최대 25점)을 합산한 100점 만점 지표입니다. 할인율은 59% 이상이면 50점 만점, 절약 금액은 10만 원 이상 25점, 상태 등급은 「박스 훼손」 25점 · 「반품-최상」 22점 · 「반품-상」 18점 · 「반품-중」 12점 기준입니다. 점수는 구매 판단을 돕기 위한 참고 지표이며, 상품의 실제 가치와 다를 수 있습니다.</li>
+        <li>반품 상품은 등급(박스 훼손 · 반품-최상 · 반품-상 · 반품-중)에 따라 구성품 누락이나 흠집이 있을 수 있습니다. 상품 페이지의 상태 설명을 함께 확인하세요.</li>
+        <li>리턴픽은 쿠팡과 무관한 비공식 정보 페이지이며, 상품의 판매·배송·교환·환불 당사자가 아닙니다. 구매·문의는 쿠팡에서 진행됩니다.</li>
+        <li>이 페이지는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark small" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4"/><path d="M3 17l9 4 9-4"/></svg>
+      </span>
+      <div>
+        <p class="footer-name">리턴픽</p>
+        <p class="footer-desc">매일 갱신되는 반품 특가 모음</p>
+      </div>
+    </div>
+    <p class="footer-note">
+      리턴픽은 쿠팡·쿠팡 파트너스와 별개의 비공식 사이트입니다. 상품명·가격·이미지의 권리는 각 판매자 및 쿠팡에 있으며,
+      본 페이지는 정보 제공 목적으로만 작성되었습니다.
+    </p>
+    <p class="footer-copy">© <span id="footerYear">2026</span> 리턴픽 · 수집 <time id="footerUpdated">-</time></p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
